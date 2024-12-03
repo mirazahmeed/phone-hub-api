@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
     <header>
-
+        <h2 class="text-5xl font-bold pt-3 text-center">Phone Hub</h2>
     </header>
-    <main>
+    <main class="container mx-auto mt-11">
+        <!-- search -->
+        <section>
+            <input id="search-field" type="text" placeholder="Search here"
+                class="input input-bordered w-full max-w-xs" />
+            <button onclick="searchHandler()" class="btn btn-neutral">Search</button>
+        </section>
 
+        <!-- search -->
+
+
+
+        <section class="">
+            <div id="loading-spinner" class="text-center my-40 hidden">
+                <span class="loading loading-infinity loading-lg"></span>
+            </div>
+            <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            </div>
+
+            <div class="hidden" id="show-all-container">
+                <button onclick="handleShowAll()" class="btn btn-neutral">Show All</button>
+            </div>
+        </section>
     </main>
     <footer>
-        
+
     </footer>
+
+    <!-- script files -->
+    <script src="js/phone.js"></script>
 </body>
+
 </html>
