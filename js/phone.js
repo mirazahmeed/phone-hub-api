@@ -1,4 +1,4 @@
-const loadPhone = async (searchPhone, isShowAll) => {
+const loadPhone = async (searchPhone = 13, isShowAll) => {
     const res = await fetch(
         `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`
     );
@@ -7,7 +7,7 @@ const loadPhone = async (searchPhone, isShowAll) => {
     displayPhone(phones, isShowAll);
 };
 
-const displayPhone = (phones,isShowAll) => {
+const displayPhone = (phones, isShowAll) => {
     const showAllContainer = document.getElementById("show-all-container");
     if (phones.length > 5) {
         showAllContainer.classList.remove("hidden");
@@ -15,11 +15,10 @@ const displayPhone = (phones,isShowAll) => {
         showAllContainer.classList.add("hidden");
     }
 
-    if(!isShowAll) {
+    if (!isShowAll) {
         phones = phones.slice(0, 5);
-        
-    }else{
-        showAllContainer.classList.add("hidden")
+    } else {
+        showAllContainer.classList.add("hidden");
     }
 
     const phoneContainer = document.getElementById("phone-container");
@@ -36,7 +35,7 @@ const displayPhone = (phones,isShowAll) => {
                     <h2 class="card-title">${phone.phone_name}</h2>
                     <p>If a dog chews shoes whose shoes does he choose?</p>
                     <div class="card-actions justify-end">
-                        <button onclick="showDetails()" class="btn btn-primary">Buy Now</button>
+                        <button onclick="showDetails('${phone.slug}')" class="btn btn-primary">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -45,6 +44,20 @@ const displayPhone = (phones,isShowAll) => {
     });
 
     toggleLoadingSpinner(false);
+};
+
+const showDetails = async (id) => {
+    // console.log("showDetails", id);
+    const res = await fetch(
+        `https://openapi.programming-hero.com/api/phone/${id}`
+    );
+    const data = await res.json();
+    console.log(data.data);
+    showPhoneDetails(data);
+};
+
+const showPhoneDetails = (phone) => {
+    show_details_modal.showModal();
 };
 
 // search functionality
@@ -68,10 +81,6 @@ const handleShowAll = () => {
     searchHandler(true);
 };
 
+loadPhone();
 
-const showDetails = () => {
-
-}
-
-
-// loadPhone();
+// <button onclick="showDetails('${phone.slug}');show_details_modal.showModal()" class="btn btn-primary">Buy Now</button>
