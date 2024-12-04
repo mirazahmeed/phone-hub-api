@@ -52,11 +52,25 @@ const showDetails = async (id) => {
         `https://openapi.programming-hero.com/api/phone/${id}`
     );
     const data = await res.json();
-    console.log(data.data);
-    showPhoneDetails(data);
+    const phone = data.data;
+    showPhoneDetails(phone);
 };
 
 const showPhoneDetails = (phone) => {
+    console.log(phone);
+    const modalPhoneTitle = document.getElementById("modal-phone-title");
+    modalPhoneTitle.innerText = phone.name;
+
+    const modalDetailsContainer = document.getElementById("modal-detail-container");
+    modalDetailsContainer.innerHTML = `
+    <p>Brand: ${phone.brand}</p>
+    <p>Storage: ${phone?.mainFeatures?.storage}</p>
+    <p>GPS: ${phone?.others?.GPS || "No GPS available "}</p>
+    <p>GPS: ${phone?.others?.GPS ? phone.others.GPS : "No GPS available in this device"}</p>
+
+    `
+
+
     show_details_modal.showModal();
 };
 
